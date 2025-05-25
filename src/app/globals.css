@@ -1,0 +1,234 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Flow Color System */
+  --flow-primary: #6366f1;
+  --flow-secondary: #8b5cf6;
+  --flow-accent: #06b6d4;
+  --flow-success: #10b981;
+  --flow-warning: #f59e0b;
+  --flow-error: #ef4444;
+  
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  
+  /* Dark Mode Flow */
+  --dark-bg: #0a0a0a;
+  --dark-card: rgba(18, 18, 18, 0.8);
+  --dark-surface: rgba(30, 30, 30, 0.9);
+  --dark-text: #e4e4e7;
+  --dark-text-secondary: #a1a1aa;
+  
+  /* Animation */
+  --flow-transition: cubic-bezier(0.4, 0, 0.2, 1);
+  --flow-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-dark-bg text-dark-text font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/20 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/30;
+  }
+}
+
+@layer components {
+  /* Glass Effect Components */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .glass-card {
+    @apply glass rounded-2xl p-6;
+  }
+  
+  .glass-button {
+    @apply glass rounded-xl px-6 py-3 transition-all duration-300;
+    @apply hover:bg-white/20 hover:scale-105 active:scale-95;
+  }
+  
+  /* Flow Animations */
+  .flow-entrance {
+    animation: flowEntrance 0.8s var(--flow-spring) forwards;
+  }
+  
+  .flow-glow {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    transition: box-shadow 0.3s var(--flow-transition);
+  }
+  
+  .flow-glow:hover {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+  }
+  
+  /* Particle System */
+  .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .particle {
+    position: absolute;
+    background: linear-gradient(45deg, var(--flow-primary), var(--flow-accent));
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .particle:nth-child(odd) {
+    animation-delay: -2s;
+  }
+  
+  .particle:nth-child(3n) {
+    animation-delay: -4s;
+  }
+  
+  /* Code Block Styling */
+  .code-block {
+    @apply font-jetbrains bg-dark-surface rounded-lg p-4;
+    @apply border border-white/10;
+  }
+  
+  /* Breathing Animation for CTAs */
+  .breathe {
+    animation: breathe 3s ease-in-out infinite;
+  }
+  
+  /* Typing Effect */
+  .typing {
+    overflow: hidden;
+    border-right: 2px solid var(--flow-primary);
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+}
+
+@layer utilities {
+  /* Flow State Classes */
+  .text-flow-primary {
+    color: var(--flow-primary);
+  }
+  
+  .text-flow-secondary {
+    color: var(--flow-secondary);
+  }
+  
+  .text-flow-accent {
+    color: var(--flow-accent);
+  }
+  
+  .bg-flow-primary {
+    background-color: var(--flow-primary);
+  }
+  
+  .bg-flow-secondary {
+    background-color: var(--flow-secondary);
+  }
+  
+  .bg-flow-accent {
+    background-color: var(--flow-accent);
+  }
+  
+  .gradient-flow {
+    background: linear-gradient(135deg, var(--flow-primary), var(--flow-secondary), var(--flow-accent));
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, var(--flow-primary), var(--flow-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes flowEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--flow-primary);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .glass-card {
+    @apply p-4;
+  }
+  
+  .particle {
+    display: none;
+  }
+}
