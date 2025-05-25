@@ -42,11 +42,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen bg-dark-bg text-dark-text antialiased overflow-x-hidden">
-        <div className="relative min-h-screen">
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} style={{ backgroundColor: '#000000' }}>
+      <body className="min-h-screen text-dark-text antialiased overflow-x-hidden" style={{ backgroundColor: '#000000', background: 'linear-gradient(135deg, #000000 0%, #0a0a0f 50%, #111118 100%)' }}>
+        <div className="relative min-h-screen" style={{ backgroundColor: 'transparent' }}>
           {/* Background gradient overlay */}
-          <div className="fixed inset-0 bg-gradient-to-br from-flow-primary/5 via-dark-bg to-flow-secondary/5 pointer-events-none" />
+          <div className="fixed inset-0 bg-gradient-to-br from-flow-primary/5 via-transparent to-flow-secondary/5 pointer-events-none" />
           
           {/* Animated background pattern */}
           <div className="fixed inset-0 opacity-30 pointer-events-none">

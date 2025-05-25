@@ -40,13 +40,21 @@
   
   html {
     @apply scroll-smooth;
+    background-color: var(--dark-void) !important;
   }
   
   body {
-    @apply bg-dark-void text-dark-text font-sans antialiased;
-    background: linear-gradient(135deg, var(--dark-void) 0%, var(--dark-bg) 50%, var(--dark-surface) 100%);
+    @apply text-dark-text font-sans antialiased;
+    background: var(--dark-void) !important;
+    background-image: linear-gradient(135deg, var(--dark-void) 0%, var(--dark-bg) 50%, var(--dark-surface) 100%) !important;
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
+    min-height: 100vh;
+  }
+  
+  #root {
+    background: transparent;
+    min-height: 100vh;
   }
   
   /* Kojima-style scrollbar */
