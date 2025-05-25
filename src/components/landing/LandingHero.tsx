@@ -1,3 +1,4 @@
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 'use client'
 
@@ -17,6 +18,9 @@ export function LandingHero() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4">
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
       <div className="max-w-7xl mx-auto text-center">
         {/* Main Hero Content */}
         <div className="flow-entrance">
@@ -33,11 +37,11 @@ export function LandingHero() {
           </h1>
           
           {/* Subheadline */}
-          <p className="text-xl md:text-2xl text-dark-text-secondary mb-4 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-dark-text-secondary dark:text-gray-300 mb-4 max-w-3xl mx-auto leading-relaxed">
             Transform your coding workflow with AI-powered conversations.
           </p>
           
-          <p className="text-lg md:text-xl text-dark-text-secondary mb-12 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-dark-text-secondary dark:text-gray-400 mb-12 max-w-2xl mx-auto">
             Where developers don't just code, they <span className="text-flow-primary font-semibold">flow</span>.
           </p>
           
@@ -64,12 +68,12 @@ export function LandingHero() {
         
         {/* Code Preview Section */}
         <div className="relative max-w-4xl mx-auto">
-          <div className="glass-card">
+          <div className="glass-card dark:bg-gray-900/60 dark:border-gray-700/50">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-3 h-3 rounded-full bg-flow-error"></div>
               <div className="w-3 h-3 rounded-full bg-flow-warning"></div>
               <div className="w-3 h-3 rounded-full bg-flow-success"></div>
-              <span className="text-dark-text-secondary text-sm ml-2">
+              <span className="text-dark-text-secondary dark:text-gray-400 text-sm ml-2">
                 codeflo.chat
               </span>
             </div>
@@ -77,8 +81,8 @@ export function LandingHero() {
             <div className="space-y-4">
               {/* User Message */}
               <div className="flex justify-end">
-                <div className="glass bg-flow-primary/20 rounded-2xl px-4 py-3 max-w-md">
-                  <p className="text-dark-text">
+                <div className="glass bg-flow-primary/20 dark:bg-flow-primary/30 rounded-2xl px-4 py-3 max-w-md">
+                  <p className="text-dark-text dark:text-white">
                     "Add a dark mode toggle to my Next.js app"
                   </p>
                 </div>
@@ -86,8 +90,8 @@ export function LandingHero() {
               
               {/* AI Response */}
               <div className="flex justify-start">
-                <div className="glass bg-dark-surface rounded-2xl px-4 py-3 max-w-2xl">
-                  <p className="text-dark-text mb-3">
+                <div className="glass bg-dark-surface dark:bg-gray-800/70 rounded-2xl px-4 py-3 max-w-2xl">
+                  <p className="text-dark-text dark:text-gray-200 mb-3">
                     I'll analyze your app structure and add a beautiful dark mode toggle. Here's what I'll do:
                   </p>
                   <CodeSnippet 
@@ -108,7 +112,7 @@ export function ThemeToggle() {
                   />
                   <Button 
                     size="sm" 
-                    className="mt-3 bg-flow-accent hover:bg-flow-accent/90 text-dark-bg"
+                    className="mt-3 bg-flow-accent hover:bg-flow-accent/90 text-dark-bg dark:text-white"
                   >
                     Apply Changes ✨
                   </Button>
