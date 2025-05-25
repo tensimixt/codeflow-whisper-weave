@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-  /* Flow Color System */
+  /* Kojima x Apple Dark Flow System */
   --flow-primary: #6366f1;
   --flow-secondary: #8b5cf6;
   --flow-accent: #06b6d4;
@@ -12,21 +12,25 @@
   --flow-warning: #f59e0b;
   --flow-error: #ef4444;
   
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  /* Cinematic Glassmorphism */
+  --glass-bg: rgba(0, 0, 0, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 16px 64px 0 rgba(0, 0, 0, 0.8);
+  --glass-glow: 0 0 40px rgba(99, 102, 241, 0.3);
   
-  /* Dark Mode Flow */
-  --dark-bg: #0a0a0a;
-  --dark-card: rgba(18, 18, 18, 0.8);
-  --dark-surface: rgba(30, 30, 30, 0.9);
-  --dark-text: #e4e4e7;
-  --dark-text-secondary: #a1a1aa;
+  /* Kojima Dark Palette */
+  --dark-void: #000000;
+  --dark-bg: #0a0a0f;
+  --dark-surface: #111118;
+  --dark-card: rgba(17, 17, 24, 0.9);
+  --dark-text: #f8fafc;
+  --dark-text-secondary: #94a3b8;
+  --dark-text-muted: #64748b;
   
-  /* Animation */
-  --flow-transition: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Apple-inspired Transitions */
+  --flow-transition: cubic-bezier(0.16, 1, 0.3, 1);
   --flow-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --flow-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 @layer base {
@@ -34,14 +38,20 @@
     @apply border-border;
   }
   
-  body {
-    @apply bg-dark-bg text-dark-text font-sans;
-    font-feature-settings: "rlig" 1, "calt" 1;
+  html {
+    @apply scroll-smooth;
   }
   
-  /* Custom scrollbar */
+  body {
+    @apply bg-dark-void text-dark-text font-sans antialiased;
+    background: linear-gradient(135deg, var(--dark-void) 0%, var(--dark-bg) 50%, var(--dark-surface) 100%);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+  
+  /* Kojima-style scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   ::-webkit-scrollbar-track {
@@ -49,115 +59,148 @@
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-white/20 rounded-full;
+    background: linear-gradient(180deg, var(--flow-primary), var(--flow-accent));
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-white/30;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
   }
 }
 
 @layer components {
-  /* Glass Effect Components */
+  /* Cinematic Glass Effects */
   .glass {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
   
   .glass-card {
-    @apply glass rounded-2xl p-6;
+    @apply glass rounded-2xl p-8;
+    transition: all 0.4s var(--flow-transition);
   }
   
   .glass-button {
-    @apply glass rounded-xl px-6 py-3 transition-all duration-300;
-    @apply hover:bg-white/20 hover:scale-105 active:scale-95;
+    @apply glass rounded-xl px-6 py-3;
+    transition: all 0.3s var(--flow-spring);
+    @apply hover:bg-white/10 hover:scale-105 hover:shadow-2xl active:scale-95;
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
   
-  /* Flow Animations */
+  .glass-button:hover {
+    box-shadow: var(--glass-glow), var(--glass-shadow);
+  }
+  
+  /* Kojima-inspired Animations */
   .flow-entrance {
-    animation: flowEntrance 0.8s var(--flow-spring) forwards;
+    animation: kojimaEntrance 1.2s var(--flow-spring) forwards;
+    opacity: 0;
   }
   
   .flow-glow {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-    transition: box-shadow 0.3s var(--flow-transition);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+    transition: all 0.4s var(--flow-transition);
   }
   
   .flow-glow:hover {
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 50px rgba(99, 102, 241, 0.7), 0 0 100px rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
   }
   
-  /* Particle System */
+  /* Particle System Enhancement */
   .particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
   }
   
   .particle {
     position: absolute;
     background: linear-gradient(45deg, var(--flow-primary), var(--flow-accent));
     border-radius: 50%;
-    opacity: 0.6;
-    animation: float 6s ease-in-out infinite;
+    opacity: 0.7;
+    animation: kojimaFloat 8s ease-in-out infinite;
+    box-shadow: 0 0 20px currentColor;
   }
   
   .particle:nth-child(odd) {
     animation-delay: -2s;
+    background: linear-gradient(45deg, var(--flow-secondary), var(--flow-primary));
   }
   
   .particle:nth-child(3n) {
     animation-delay: -4s;
+    background: linear-gradient(45deg, var(--flow-accent), var(--flow-secondary));
   }
   
   /* Code Block Styling */
   .code-block {
-    @apply font-jetbrains bg-dark-surface rounded-lg p-4;
-    @apply border border-white/10;
+    @apply font-jetbrains bg-dark-surface rounded-xl p-6;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(17, 17, 24, 0.95), rgba(17, 17, 24, 0.8));
   }
   
-  /* Breathing Animation for CTAs */
+  /* Cinematic Breathing Animation */
   .breathe {
-    animation: breathe 3s ease-in-out infinite;
+    animation: kojimaBreath 4s ease-in-out infinite;
   }
   
-  /* Typing Effect */
+  /* Enhanced Typing Effect */
   .typing {
     overflow: hidden;
-    border-right: 2px solid var(--flow-primary);
+    border-right: 3px solid var(--flow-primary);
     white-space: nowrap;
-    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    animation: 
+      typing 3.5s steps(40, end),
+      blinkCaret 1s step-end infinite;
+    box-shadow: 2px 0 0 var(--flow-primary);
+  }
+  
+  /* Apple-style Focus States */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flow-primary focus-visible:ring-offset-2 focus-visible:ring-offset-dark-bg;
   }
 }
 
 @layer utilities {
-  /* Flow State Classes */
+  /* Enhanced Flow State Classes */
   .text-flow-primary {
     color: var(--flow-primary);
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
   }
   
   .text-flow-secondary {
     color: var(--flow-secondary);
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
   }
   
   .text-flow-accent {
     color: var(--flow-accent);
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
   }
   
   .bg-flow-primary {
     background-color: var(--flow-primary);
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
   }
   
   .bg-flow-secondary {
     background-color: var(--flow-secondary);
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
   }
   
   .bg-flow-accent {
     background-color: var(--flow-accent);
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
   }
   
   .gradient-flow {
@@ -169,38 +212,86 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+  }
+  
+  /* Kojima Cinematic Effects */
+  .cinematic-glow {
+    box-shadow: 
+      0 0 20px rgba(99, 102, 241, 0.4),
+      0 0 40px rgba(139, 92, 246, 0.3),
+      0 0 80px rgba(6, 182, 212, 0.2);
+  }
+  
+  .holographic {
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(99, 102, 241, 0.1) 50%,
+      transparent 70%
+    );
+    background-size: 20px 20px;
+    animation: holographicShimmer 3s ease-in-out infinite;
   }
 }
 
-/* Keyframe Animations */
-@keyframes flowEntrance {
+/* Kojima x Apple Keyframe Animations */
+@keyframes kojimaEntrance {
   0% {
     opacity: 0;
-    transform: translateY(30px) scale(0.95);
+    transform: translateY(60px) scale(0.8) rotateX(15deg);
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(20px) scale(0.95) rotateX(5deg);
+    filter: blur(2px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0);
   }
 }
 
-@keyframes float {
+@keyframes kojimaFloat {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateY(-30px) rotate(90deg) scale(1.1);
+    opacity: 1;
   }
   50% {
-    transform: translateY(-20px) rotate(180deg);
+    transform: translateY(-60px) rotate(180deg) scale(0.9);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-30px) rotate(270deg) scale(1.1);
+    opacity: 1;
   }
 }
 
-@keyframes breathe {
+@keyframes kojimaBreath {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
   }
   50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+    transform: scale(1.08);
+    box-shadow: 
+      0 0 50px rgba(99, 102, 241, 0.7),
+      0 0 100px rgba(139, 92, 246, 0.4);
+  }
+}
+
+@keyframes holographicShimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
   }
 }
 
@@ -213,22 +304,48 @@
   }
 }
 
-@keyframes blink-caret {
+@keyframes blinkCaret {
   from, to {
     border-color: transparent;
   }
   50% {
     border-color: var(--flow-primary);
+    box-shadow: 0 0 10px var(--flow-primary);
   }
 }
 
-/* Responsive Design */
+/* Responsive Kojima Design */
 @media (max-width: 768px) {
   .glass-card {
-    @apply p-4;
+    @apply p-6;
   }
   
   .particle {
     display: none;
+  }
+  
+  .gradient-text {
+    filter: none;
+  }
+}
+
+/* Accessibility with Style */
+@media (prefers-reduced-motion: reduce) {
+  .flow-entrance,
+  .breathe,
+  .particle {
+    animation: none;
+  }
+  
+  .flow-glow {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--flow-primary);
   }
 }
