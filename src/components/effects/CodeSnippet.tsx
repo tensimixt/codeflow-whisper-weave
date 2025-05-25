@@ -1,7 +1,5 @@
-
-'use client'
-
 import { useState, useEffect } from 'react'
+import { useTheme } from '@/lib/theme-provider'
 
 interface CodeSnippetProps {
   code: string
@@ -11,7 +9,8 @@ interface CodeSnippetProps {
 export function CodeSnippet({ code, language = 'typescript' }: CodeSnippetProps) {
   const [displayedCode, setDisplayedCode] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
-
+  const { theme } = useTheme()
+  
   useEffect(() => {
     if (currentIndex < code.length) {
       const timeout = setTimeout(() => {
@@ -24,12 +23,12 @@ export function CodeSnippet({ code, language = 'typescript' }: CodeSnippetProps)
   }, [currentIndex, code])
 
   return (
-    <div className="code-block text-sm">
-      <pre className="overflow-x-auto">
-        <code className="text-flow-accent">
+    <div className="code-block text-sm dark:bg-gray-900/80 rounded-md">
+      <pre className="overflow-x-auto p-2">
+        <code className="text-flow-accent dark:text-blue-400">
           {displayedCode}
           {currentIndex < code.length && (
-            <span className="animate-pulse text-flow-primary">|</span>
+            <span className="animate-pulse text-flow-primary dark:text-indigo-400">|</span>
           )}
         </code>
       </pre>

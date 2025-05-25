@@ -1,10 +1,9 @@
-
-'use client'
-
 import { useEffect, useRef } from 'react'
+import { useTheme } from '@/lib/theme-provider'
 
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -33,6 +32,10 @@ export function ParticleField() {
       hue: number
     }> = []
 
+    // Determine color range based on theme
+    const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    const baseHue = isDark ? 240 : 220 // Slightly different hue for dark mode
+
     // Create particles
     for (let i = 0; i < 50; i++) {
       particles.push({
@@ -41,8 +44,8 @@ export function ParticleField() {
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 3 + 1,
-        opacity: Math.random() * 0.5 + 0.1,
-        hue: Math.random() * 60 + 220, // Blue to purple range
+        opacity: Math.random() * 0.5 + (isDark ? 0.2 : 0.1), // Slightly higher opacity in dark mode
+        hue: Math.random() * 60 + baseHue, // Blue to purple range, adjusted for theme
       })
     }
 
@@ -64,7 +67,7 @@ export function ParticleField() {
         // Draw particle
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `hsla(${particle.hue}, 70%, 60%, ${particle.opacity})`
+        ctx.fillStyle = `hsla(${particle.hue}, 70%, ${isDark ? '65%' : '60%'}, ${particle.opacity})`
         ctx.fill()
 
         // Draw connections to nearby particles
@@ -77,7 +80,7 @@ export function ParticleField() {
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(other.x, other.y)
-            ctx.strokeStyle = `hsla(${particle.hue}, 70%, 60%, ${0.1 * (1 - distance / 100)})`
+            ctx.strokeStyle = `hsla(${particle.hue}, 70%, ${isDark ? '65%' : '60%'}, ${0.1 * (1 - distance / 100)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
@@ -92,12 +95,12 @@ export function ParticleField() {
     return () => {
       window.removeEventListener('resize', resizeCanvas)
     }
-  }, [])
+  }, [theme]) // Re-run effect when theme changes
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 pointer-events-none opacity-60"
+      className="absolute inset-0 pointer-events-none opacity-60 dark:opacity-70"
       style={{ zIndex: 1 }}
     />
   )
