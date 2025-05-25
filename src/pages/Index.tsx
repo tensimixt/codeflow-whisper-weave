@@ -1,14 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { LandingHero } from '@/components/landing/LandingHero'
+import { ParticleField } from '@/components/effects/ParticleField'
+import { FeatureShowcase } from '@/components/landing/FeatureShowcase'
+import { TestimonialCarousel } from '@/components/landing/TestimonialCarousel'
+import { CallToAction } from '@/components/landing/CallToAction'
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="relative min-h-screen">
+      {/* Animated particle background */}
+      <ParticleField />
+      
+      {/* Hero Section */}
+      <section className="relative z-10">
+        <LandingHero />
+      </section>
+      
+      {/* Feature Showcase */}
+      <section className="relative z-10 py-20">
+        <FeatureShowcase />
+      </section>
+      
+      {/* Testimonials */}
+      <section className="relative z-10 py-20">
+        <TestimonialCarousel />
+      </section>
+      
+      {/* Final CTA */}
+      <section className="relative z-10 py-20">
+        <CallToAction />
+      </section>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index
