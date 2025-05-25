@@ -1,10 +1,13 @@
 
+import { LandingHero } from '@/components/landing/LandingHero'
+import { ParticleField } from '@/components/effects/ParticleField'
+import { FeatureShowcase } from '@/components/landing/FeatureShowcase'
+import { TestimonialCarousel } from '@/components/landing/TestimonialCarousel'
+import { CallToAction } from '@/components/landing/CallToAction'
+
 const Index = () => {
   return (
-    <div className="relative min-h-screen bg-dark-void text-dark-text" style={{ 
-      backgroundColor: '#000000',
-      background: 'linear-gradient(135deg, #000000 0%, #0a0a0f 50%, #111118 100%)'
-    }}>
+    <div className="relative min-h-screen">
       {/* Animated particle background */}
       <ParticleField />
       
